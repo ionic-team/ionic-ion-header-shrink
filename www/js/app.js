@@ -11,7 +11,6 @@ angular.module('starter', ['ionic'])
   var fadeAmt;
 
   var shrink = function(header, content, amt, max) {
-    console.log('Translating up', amt);
     amt = Math.min(max, amt);
     fadeAmt = 1 - amt / max;
     ionic.requestAnimationFrame(function() {
