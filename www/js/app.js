@@ -25,21 +25,26 @@ angular.module('starter', ['ionic'])
     restrict: 'A',
     link: function($scope, $element, $attr) {
       var starty = $scope.$eval($attr.headerShrink) || 0;
+      var last = [ starty, starty, starty, starty, starty ];
       var shrinkAmt;
-      
+
       var header = $document[0].body.querySelector('.bar-header');
       var headerHeight = header.offsetHeight;
-      
+
       $element.bind('scroll', function(e) {
-        if(e.detail.scrollTop > starty) {
-          // Start shrinking
-          shrinkAmt = headerHeight - Math.max(0, (starty + headerHeight) - e.detail.scrollTop);
-          shrink(header, $element[0], shrinkAmt, headerHeight);
-        } else {
-          shrink(header, $element[0], 0, headerHeight);
-        }
+        var last_delta = last.shift() - last[last.length-1];
+        last.push(e.detail.scrollTop);
+        var delta = last[0] - last[last.length-1];
+
+        if (last_delta <= 0 && delta > 0)
+          starty = Math.max(0, e.detail.scrollTop - headerHeight);
+        else if (last_delta >= 0 && delta < 0)
+          starty = Math.max(0, e.detail.scrollTop);
+        starty = Math.min(starty, $element[0].scrollHeight - $element[0].offsetHeight - headerHeight);
+
+        shrinkAmt = Math.max(0, headerHeight - Math.max(0, (starty + headerHeight) - e.detail.scrollTop));
+        shrink(header, $element[0], shrinkAmt, headerHeight);
       });
     }
   }
 })
-
