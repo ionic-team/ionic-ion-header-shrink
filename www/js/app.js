@@ -36,14 +36,17 @@ angular.module('starter', ['ionic'])
         last.push(e.detail.scrollTop);
         var delta = last[0] - last[last.length-1];
 
-        if (last_delta <= 0 && delta > 0)
-          starty = Math.max(0, e.detail.scrollTop - headerHeight);
-        else if (last_delta >= 0 && delta < 0)
-          starty = Math.max(0, e.detail.scrollTop);
-        starty = Math.min(starty, $element[0].scrollHeight - $element[0].offsetHeight - headerHeight);
+        if ($element[0].scrollHeight > $element[0].offsetHeight)  {
+          if (last_delta <= 0 && delta > 0)
+            starty = Math.max(0, e.detail.scrollTop - headerHeight);
+          else if (last_delta >= 0 && delta < 0)
+            starty = Math.max(0, e.detail.scrollTop);
 
-        shrinkAmt = Math.max(0, headerHeight - Math.max(0, (starty + headerHeight) - e.detail.scrollTop));
-        shrink(header, $element[0], shrinkAmt, headerHeight);
+          starty = Math.min(starty, $element[0].scrollHeight - $element[0].offsetHeight - headerHeight);
+
+          shrinkAmt = Math.max(0, headerHeight - Math.max(0, (starty + headerHeight) - e.detail.scrollTop));
+          shrink(header, $element[0], shrinkAmt, headerHeight);
+        }
       });
     }
   }
