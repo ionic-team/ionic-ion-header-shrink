@@ -1,0 +1,19 @@
+{
+  "name": "ionic-ion-header-shrink",
+  "version": "1.0.0",
+  "homepage": "https://github.com/driftyco/ionic-ion-header-shrink",
+  "authors": [
+    "Max Lynch <max@drifty.com>"
+  ],
+  "description": "A collapsing header effect as seen in the Facebook news feed",
+  "main": [
+    "ionic.headerShrink.js"
+  ],
+  "keywords": [
+    "mobile",
+    "html5",
+    "ionic"
+  ],
+  "license": "MIT",
+  "private": false
+}
