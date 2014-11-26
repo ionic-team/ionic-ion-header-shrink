@@ -24,7 +24,7 @@ angular.module('ionic.ion.headerShrink', [])
 
       var y = 0;
       var prevY = 0;
-      var scrollDelay = 0.5;
+      var scrollDelay = 0.4;
 
       var fadeAmt;
       
