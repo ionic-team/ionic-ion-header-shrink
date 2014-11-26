@@ -5,28 +5,30 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title>Ionic Seed App</title>
 
-    <!-- ionic css -->
-    <link href="lib/css/ionic.css" rel="stylesheet">
-
     <!-- your app's css -->
-    <link href="css/app.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://code.ionicframework.com/1.0.0-beta.13/css/ionic.css">
 
     <!-- ionic/angularjs scripts -->
-    <script src="lib/js/ionic.bundle.js"></script>
-
-    <!-- cordova script (this will be a 404 during development) -->
-    <script src="cordova.js"></script>
+    <script src="http://code.ionicframework.com/1.0.0-beta.13/js/ionic.bundle.js"></script>
 
     <!-- your app's script -->
-    <script src="js/app.js"></script>
-    <script src="js/services.js"></script>
-    <script src="js/controllers.js"></script>
+    <script src="../ionic.headerShrink.js"></script>
+
+    <style>
+      ion-content {
+        top: 0 !important;
+      }
+    </style>
+
+    <script>
+      angular.module('starter', ['ionic', 'ionic.ion.headerShrink']);
+    </script>
   </head>
 
   <!-- 
     'starter' is the name of this angular module (js/app.js)
   -->
-  <body ng-app="starter" animation="slide-left-right-ios7">
+  <body ng-app="starter">
 
     <ion-pane>
       <ion-header-bar class="bar-positive">
