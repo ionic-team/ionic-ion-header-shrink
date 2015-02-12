@@ -1,27 +1,9 @@
 angular.module('ionic.ion.headerShrink', [])
 
 .directive('headerShrink', function() {
-  var fadeAmt;
-
-  var shrink = function(header, content, amt, max) {
-    amt = Math.min(max, amt);
-    fadeAmt = 1 - amt / max;
-    ionic.requestAnimationFrame(function() {
-      header.style[ionic.CSS.TRANSFORM] = 'translate3d(0, -' + amt + 'px, 0)';
-      for(var i = 0, j = header.children.length; i < j; i++) {
-        header.children[i].style.opacity = fadeAmt;
-      }
-    });
-  };
-
   return {
     restrict: 'A',
     link: function($scope, $element, $attr) {
-      var starty = $scope.$eval($attr.headerShrink) || 0;
-      var shrinkAmt;
-
-      var amt;
-
       var y = 0;
       var prevY = 0;
       var scrollDelay = 0.4;
@@ -39,7 +21,6 @@ angular.module('ionic.ion.headerShrink', [])
         } else {
           y = 0;
         }
-        console.log(scrollTop);
 
         ionic.requestAnimationFrame(function() {
           fadeAmt = 1 - (y / headerHeight);
