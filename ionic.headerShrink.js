@@ -1,6 +1,6 @@
 angular.module('ionic.ion.headerShrink', [])
 
-.directive('headerShrink', function() {
+.directive('headerShrink', function($ionicScrollDelegate) {
   return {
     restrict: 'A',
     link: function($scope, $element, $attr) {
@@ -37,6 +37,7 @@ angular.module('ionic.ion.headerShrink', [])
           
           if (contentTop !== lastContentTop) {
             element.style.top = (lastContentTop = contentTop) + 'px';
+            $ionicScrollDelegate.resize();
           }
           
           for(var i = 0, j = header.children.length; i < j; i++) {
