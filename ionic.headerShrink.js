@@ -1,6 +1,6 @@
 angular.module('ionic.ion.headerShrink', [])
 
-.directive('headerShrink', function($document) {
+.directive('headerShrink', function() {
   var fadeAmt;
 
   var shrink = function(header, content, amt, max) {
@@ -28,7 +28,7 @@ angular.module('ionic.ion.headerShrink', [])
 
       var fadeAmt;
       
-      var header = $document[0].body.querySelector('.bar-header');
+      var header = $element.parent()[0].querySelector('.bar-header');
       var headerHeight = header.offsetHeight;
       
       function onScroll(e) {
