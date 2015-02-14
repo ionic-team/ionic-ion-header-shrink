@@ -16,7 +16,7 @@ angular.module('ionic.ion.headerShrink', [])
       var headerHeight = 0;
       var headers = [];
 
-      // look for multiple headers when using a ion-navbar or sidemenu
+      // look for multiple headers when using an ion-navbar or sidemenu
       headers = $document[0].body.querySelectorAll('[nav-bar] > .bar-header');
 
       // if there are not mulitple headers query for a single one
@@ -38,11 +38,11 @@ angular.module('ionic.ion.headerShrink', [])
 
         ionic.requestAnimationFrame(function() {
           fadeAmt = 1 - (y / headerHeight);
+          // iterate over all found headers and shrink them
           for(var k = 0, l = headers.length; k < l; k++) {
             headers[k].style[ionic.CSS.TRANSFORM] = 'translate3d(0, ' + -y + 'px, 0)';
             headers[k].style.opacity = fadeAmt;
           }
-
         });
 
         prevY = scrollTop;
