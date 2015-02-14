@@ -3,34 +3,30 @@ angular.module('ionic.ion.headerShrink', [])
 .directive('headerShrink', function($document) {
   var fadeAmt;
 
-  var shrink = function(header, content, amt, max) {
-    amt = Math.min(max, amt);
-    fadeAmt = 1 - amt / max;
-    ionic.requestAnimationFrame(function() {
-      header.style[ionic.CSS.TRANSFORM] = 'translate3d(0, -' + amt + 'px, 0)';
-      for(var i = 0, j = header.children.length; i < j; i++) {
-        header.children[i].style.opacity = fadeAmt;
-      }
-    });
-  };
-
   return {
     restrict: 'A',
     link: function($scope, $element, $attr) {
       var starty = $scope.$eval($attr.headerShrink) || 0;
       var shrinkAmt;
-
       var amt;
-
       var y = 0;
       var prevY = 0;
       var scrollDelay = 0.4;
-
       var fadeAmt;
+      var headerHeight = 0;
+      var headers = [];
+
+      // look for multiple headers when using a ion-navbar or sidemenu
+      headers = $document[0].body.querySelectorAll('[nav-bar] > .bar-header');
+
+      // if there are not mulitple headers query for a single one
+      if (headers.length == 0) {
+        headers = $document[0].body.querySelectorAll('.bar-header');
+      }
+
+      headerHeight = headers[0].offsetHeight;
       
-      var header = $document[0].body.querySelector('.bar-header');
-      var headerHeight = header.offsetHeight;
-      
+
       function onScroll(e) {
         var scrollTop = e.detail.scrollTop;
 
@@ -39,21 +35,20 @@ angular.module('ionic.ion.headerShrink', [])
         } else {
           y = 0;
         }
-        console.log(scrollTop);
 
         ionic.requestAnimationFrame(function() {
           fadeAmt = 1 - (y / headerHeight);
-          header.style[ionic.CSS.TRANSFORM] = 'translate3d(0, ' + -y + 'px, 0)';
-          for(var i = 0, j = header.children.length; i < j; i++) {
-            header.children[i].style.opacity = fadeAmt;
+          for(var k = 0, l = headers.length; k < l; k++) {
+            headers[k].style[ionic.CSS.TRANSFORM] = 'translate3d(0, ' + -y + 'px, 0)';
+            headers[k].style.opacity = fadeAmt;
           }
+
         });
 
         prevY = scrollTop;
       }
 
-      $element.bind('scroll', onScroll);
+      $document.find('ion-content').bind('scroll', onScroll);
     }
   }
 })
-
