@@ -1,6 +1,6 @@
 angular.module('ionic.ion.headerShrink', [])
 
-.directive('headerShrink', function($document) {
+.directive('headerShrink', function($document, $ionicScrollDelegate) {
   var fadeAmt;
 
   return {
@@ -19,16 +19,23 @@ angular.module('ionic.ion.headerShrink', [])
       // look for multiple headers when using an ion-navbar or sidemenu
       headers = $document[0].body.querySelectorAll('[nav-bar] > .bar-header');
 
-      // if there are not mulitple headers query for a single one
+      // if there are no mulitple headers query for a single one
       if (headers.length == 0) {
         headers = $document[0].body.querySelectorAll('.bar-header');
       }
 
       headerHeight = headers[0].offsetHeight;
-      
+
+      // reset header-bar bevore leaving view
+      $scope.$on('$ionicView.beforeLeave', function() {
+        for(var k = 0, l = headers.length; k < l; k++) {
+          headers[k].style[ionic.CSS.TRANSFORM] = 'translate3d(0, 0, 0)';
+          headers[k].style.opacity = 1;
+        }
+      });
 
       function onScroll(e) {
-        var scrollTop = e.detail.scrollTop;
+        var scrollTop = $ionicScrollDelegate.getScrollPosition().top;
 
         if(scrollTop >= 0) {
           y = Math.min(headerHeight / scrollDelay, Math.max(0, y + scrollTop - prevY));
