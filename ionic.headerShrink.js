@@ -22,7 +22,6 @@ angular.module('ionic.ion.headerShrink', [])
       scrollContent.on("scroll", function(e) {
 
         var scrollTop = e.detail.scrollTop;
-        console.log(headers);
 
         // start after some offset
         if(scrollTop >= 25) {
