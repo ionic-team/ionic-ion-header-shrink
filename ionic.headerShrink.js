@@ -1,22 +1,10 @@
 angular.module('ionic.ion.headerShrink', [])
 
-.directive('headerShrink', function($document) {
-  var fadeAmt;
-
-  var shrink = function(header, content, amt, max) {
-    amt = Math.min(max, amt);
-    fadeAmt = 1 - amt / max;
-    ionic.requestAnimationFrame(function() {
-      header.style[ionic.CSS.TRANSFORM] = 'translate3d(0, -' + amt + 'px, 0)';
-      for(var i = 0, j = header.children.length; i < j; i++) {
-        header.children[i].style.opacity = fadeAmt;
-      }
-    });
-  };
-
+.directive('headerShrink', ['$ionicPlatform', '$document', function($ionicPlatform, $document) {
   return {
     restrict: 'A',
     link: function($scope, $element, $attr) {
+      var isIos = false;
       var starty = $scope.$eval($attr.headerShrink) || 0;
       var shrinkAmt;
 
@@ -28,8 +16,15 @@ angular.module('ionic.ion.headerShrink', [])
 
       var fadeAmt;
       
-      var header = $document[0].body.querySelector('.bar-header');
+      var header = $document[0].body.querySelector('[nav-view="active"] .bar-header');
       var headerHeight = header.offsetHeight;
+
+      $ionicPlatform.ready(function() {
+        if(device && device.platform.toLowerCase() === 'ios') {
+          isIos = true;
+          headerHeight -= 20; // account 20px for the ios status bar
+        }
+      });
       
       function onScroll(e) {
         var scrollTop = e.detail.scrollTop;
@@ -39,7 +34,10 @@ angular.module('ionic.ion.headerShrink', [])
         } else {
           y = 0;
         }
-        console.log(scrollTop);
+
+        if (isIos && y > headerHeight) {
+          y = headerHeight; // must leave 20px for the ios status bar
+        }
 
         ionic.requestAnimationFrame(function() {
           fadeAmt = 1 - (y / headerHeight);
@@ -55,5 +53,4 @@ angular.module('ionic.ion.headerShrink', [])
       $element.bind('scroll', onScroll);
     }
   }
-})
-
+}])
