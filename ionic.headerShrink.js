@@ -1,6 +1,6 @@
 angular.module('ionic.ion.headerShrink', [])
 
-.directive('headerShrink', function($document, $timeout, $ionicScrollDelegate) {
+.directive('headerShrink', ['$document', function($document) {
   var fadeAmt;
 
   return {
