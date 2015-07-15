@@ -1,5 +1,7 @@
 angular.module('ionic.ion.headerShrink', [])
 
+
+
 .directive('headerShrink', ['$document', function($document) {
   var fadeAmt;
 
@@ -43,4 +45,4 @@ angular.module('ionic.ion.headerShrink', [])
       });
     }
   }
-})
+}])
