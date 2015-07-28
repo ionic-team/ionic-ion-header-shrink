@@ -31,7 +31,6 @@ angular.module('ionic.ion.headerShrink', [])
       var header = $document[0].body.querySelector('.bar-header');
       var subheader = $document[0].body.querySelector('.bar-subheader');
       var headerHeight = header.offsetHeight;
-      var subheaderHeight = subheader.offsetHeight;
       
       function onScroll(e) {
         var scrollTop = e.detail.scrollTop;
@@ -46,7 +45,7 @@ angular.module('ionic.ion.headerShrink', [])
         ionic.requestAnimationFrame(function() {
           fadeAmt = 1 - (y / headerHeight);
           header.style[ionic.CSS.TRANSFORM] = 'translate3d(0, ' + -y + 'px, 0)';
-          if(y <= headerHeight){
+          if(y <= headerHeight && subheader){
             subheader.style[ionic.CSS.TRANSFORM] = 'translate3d(0, ' + -y + 'px, 0)';
           }
           for(var i = 0, j = header.children.length; i < j; i++) {
