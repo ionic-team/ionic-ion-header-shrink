@@ -36,6 +36,9 @@ angular.module('ionic.ion.headerShrink', [])
 
         if(scrollTop >= 0) {
           y = Math.min(headerHeight / scrollDelay, Math.max(0, y + scrollTop - prevY));
+          if( y*1.02 > headerHeight ){
+            y = headerHeight
+          }
         } else {
           y = 0;
         }
